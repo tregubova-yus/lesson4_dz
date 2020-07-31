@@ -1,0 +1,55 @@
+import pytest
+import requests
+
+
+## Тестовое API: https://dog.ceo/dog-api/
+
+
+@pytest.fixture()
+def fixture_dog_url():
+    return 'https://dog.ceo/'
+
+def pytest_addoption(parser):
+    parser.addoption(
+        "--url",
+        default="https://dog.ceo/dog-api/",
+        help="This is request url"
+    )
+
+    parser.addoption(
+        "--method",
+        default="get",
+        choices=["get", "post", "put", "patch", "delete"],
+        help="method to execute"
+    )
+
+
+@pytest.fixture
+def url(request):
+    return request.config.getoption("--url")
+
+
+@pytest.fixture
+def method(request):
+    m = request.config.getoption("--method")
+    if m == "post":
+        return requests.post
+    elif m == "get":
+        return requests.get
+    elif m == "delete":
+        return requests.delete
+    elif m == "put":
+        return requests.put
+    elif m == "patch":
+        return requests.patch
+
+#Для параметризованного теста
+@pytest.fixture(params=['bulldog'])
+def fixture_dict2(request):
+    return request.param
+
+#Для параметризованного теста
+@pytest.fixture(params=['text/html; charset=UTF-8'])
+def fixture_dict3(request):
+    return request.param
+
