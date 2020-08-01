@@ -8,11 +8,6 @@ def test_url_status(url, code, method):
     assert response.status_code == code
 
 
-# def test_access(url):
-#     response = requests.get(url)
-#     assert response.status_code == 200
-
-
 # 2. Проверка, что список с породами не пуст
 def test_breeds_list(fixture_dog_url):
     url = fixture_dog_url + f'api/breeds/list/all'
@@ -39,7 +34,6 @@ def test_breeds_list_param(fixture_dog_url, fixture_dict2):
         raise ValueError('Get not load')
     breeds_dict = get_response.get('message')
     new_dict = breeds_dict.get(fixture_dict2)
-    print(new_dict)
     assert new_dict == ['boston', 'english', 'french']
 
 
@@ -47,8 +41,6 @@ def test_breeds_list_param(fixture_dog_url, fixture_dict2):
 # 4. Проверка, правильно ли значение заголовка Content Type идентифицирует тело ответа как UTF-8
 def test_get_locations_for_us_90210_check_content_type_equals_json(fixture_dog_url,fixture_dict3):
     response = requests.get(fixture_dog_url)
-    print(response.headers['Content-Type'])
-    print(fixture_dict3)
     assert response.headers['Content-Type'] == fixture_dict3
 
 

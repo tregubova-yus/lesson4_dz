@@ -22,7 +22,6 @@ def test_breeds_list(fixture_brewery_url,fixture_dict22):
         get_response = response.text()
     brewery_dict = get_response.get('country')
     new_dict = brewery_dict.get(fixture_dict22)
-    print(new_dict)
     assert new_dict == ['United States']
 
 
@@ -39,7 +38,6 @@ def test_breeds_list_param(fixture_dog_url, fixture_dict22):
         raise ValueError('Get not load')
     breeds_dict = get_response.get('message')
     new_dict = breeds_dict.get(fixture_dict22)
-    print(new_dict)
     assert new_dict == ['boston', 'english', 'french']
 
 
@@ -47,8 +45,6 @@ def test_breeds_list_param(fixture_dog_url, fixture_dict22):
 # 4. Проверка, правильно ли значение заголовка Content Type идентифицирует тело ответа как UTF-8
 def test_get_locations_for_us_90210_check_content_type_equals_json(fixture_dog_url,fixture_dict3):
     response = requests.get(fixture_dog_url)
-    print(response.headers['Content-Type'])
-    print(fixture_dict3)
     assert response.headers['Content-Type'] == fixture_dict3
 
 
